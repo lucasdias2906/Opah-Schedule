@@ -1,0 +1,29 @@
+node_modules
+
+### WebStorm ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/build/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### Local configurations ###
+*-local.*
+
+### Local logs ###
+logs
+*.log
+*.logs
+package-lock.json
+
+### Dot ENV Files ###
+*.development
+*.production
+*.test
