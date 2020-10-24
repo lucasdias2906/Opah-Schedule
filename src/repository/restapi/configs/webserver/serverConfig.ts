@@ -14,7 +14,7 @@ export default class ServerConfig {
     constructor() {
         this.server = express()
 
-        this.dbConnection().then(success => console.warn("DB CONNECTION SUCCESS")).catch(error => console.warn("DB CONNECTION ERROR",error))
+        this.dbConnection().then(success => console.warn("DB CONNECTION ")).catch(error => console.warn("DB CONNECTION ERROR",error))
         mongoose.set('useFindAndModify', false);
         this.server.use(express.json())
         this.server.use(express.urlencoded({ extended: false }))
