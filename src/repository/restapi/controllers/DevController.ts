@@ -8,18 +8,14 @@ import User from '../../models/DevSchema'
 
 const key = "AIzaSyCi40KsvfAENVTteNcHVACNRKzAFUhbAxI"
 
+// var temp = 1
+
 class DevController {
 
     static async update(req: Request, res: Response) {
 
-        console.log("Entrou no UPDATE-CONTROLLER")
-
-        
-        
         JobConfig.job(1, async () => {
-            const users: any = await User.find()
-            console.log("USERSS", users)
-            
+            const users: any = await User.find()            
             console.log("Só será executado em um minuto e repetirá (de 1 em 1 minutos) até ser desativado...");
 
             await new Promise(resolve => {
@@ -29,17 +25,11 @@ class DevController {
                     
                     if (!user.lat || !user.lng) {
 
-                        console.log("Entroou na validacao do IF")
-
-                        console.log("USER 1", user)
-
                         const addressUrl = encodeURIComponent(user.address[0].street)
                         
                         const apiRes = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${addressUrl}&key=${key}`)
     
                         const { location } = apiRes.data?.results[0].geometry
-
-                        console.log("Entrou no IF")
 
                         user.location = location
 

@@ -1,6 +1,5 @@
 import { schedule } from 'node-cron'
 
-
 class Jobs {
 
     public job(temp: Number, func: Function) {
