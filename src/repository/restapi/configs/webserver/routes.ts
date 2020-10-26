@@ -1,12 +1,17 @@
 import { Request, Response, Router } from 'express';
 import DevController from '../../controllers/DevController';
+import AdminTemp from '../../controllers/AdminTemp'
 
 const routes = Router();
 
-routes.get('/', (req: Request, res: Response) =>
+let contador = 1
 
-    res.send({ status: 'OK' })
-);
+routes.get('/', (req: Request, res: Response) => {
+    console.log("ALGUMAS COISA", contador++)
+    return res.send({ status: 'OK' })
+});
+
+routes.post("/", AdminTemp.adminJobTemp )
 
 routes.get('/users', DevController.update);
 
