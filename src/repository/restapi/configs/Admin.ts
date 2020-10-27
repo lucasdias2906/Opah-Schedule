@@ -1,12 +1,12 @@
 import { schedule } from 'node-cron'
-
+import Admintime from '../controllers/AdminTime'
 
 
 class AdminScheduler {
 
     private tempJob = 1
 
-    public adminJob(temp: any, func: Function, url?: any) {
+    public adminJob(temp: any, func: Function, url: any) {
 
         let url_taskMap: any = {}
 
@@ -16,6 +16,8 @@ class AdminScheduler {
             url_taskMap[url] = task;
 
             if (temp != this.tempJob) {
+
+                Admintime.adminJobTime
 
                 console.log("ENTROU NO IF ADMIN")
 
