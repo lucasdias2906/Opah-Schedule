@@ -1,25 +1,44 @@
 import { Request } from 'express';
+import { EventEmitter } from 'events';
+
+const emitter = new EventEmitter();
 
 // CONTROLLER
 
-class AdminJobTime {
+class AdminSchedulerTime {
 
+    public adminTime(req: Request) {
 
-   public adminJobTime(req: Request) {
+        console.log("ENTROU NO ADMIN TIME")
 
-        const { tempJob }: any = req.params
+        const funcJobTime = () => {
 
-        if(tempJob != 1){
+            console.log("ENTROU NA FUNC")
             
-            //EXEMPLO
-            return console.log(`o tempo é de ${tempJob} minutos`)
+            const standardTime = 1
+    
+            const { tempSchedule }: any = req.params
+
+            if (tempSchedule != standardTime) {
+    
+               console.log(`o tempo é de ${tempSchedule} minutos`)
+            }
+    
+            console.log(tempSchedule)
+            console.log("ok")
         }
 
-        return console.log("TIME está na tempo padrão")
 
+        setTimeout(() => {
+
+            console.log("ENTROU NO TIME OUT")
+
+            emitter.emit('scheduleTime', funcJobTime);
+
+        }, 2000);
     }
 }
 
-const adminJobTime = new AdminJobTime()
+const adminJobTime = new AdminSchedulerTime()
 
 export default adminJobTime
