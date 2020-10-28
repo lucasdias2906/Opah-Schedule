@@ -32,10 +32,10 @@ class AdminSchedulerTime {
             setTimeout(() => {
         
                 console.log("ENTROU NO TIME OUT")
-    
-                const algo = emitter.emit('scheduleTime', funcJobTime());
 
-                console.log("algo", algo)
+                funcJobTime()
+    
+                emitter.emit('scheduleTime');
 
                 console.log("passou pelo emitter")
         
