@@ -4,11 +4,11 @@ import { EventEmitter } from 'events';
 
 const emitter = new EventEmitter();
 
-// só agenda
+// SÓ AGENDA O JOB
 
 class AdminScheduler {
 
-    public adminJob(temp: any, func: Function, url: any) {
+    public adminJob(temp: any, func: Function, url?: any) {
 
         console.log("ENTROU NO ADMINJOB")
 
