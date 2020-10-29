@@ -1,47 +1,45 @@
 import { schedule } from 'node-cron'
-// import Admintime from '../controllers/AdminTime'
-import { EventEmitter } from 'events';
 
-const emitter = new EventEmitter();
+class Jobs {
 
-// SÓ AGENDA O JOB
+    private unidade = "Minute"
+    private params = 2
 
-class AdminScheduler {
+    public job(temp: Number, func: Function) {
 
-    public adminJob(temp: any, func: Function, url?: any) {
+        switch (this.unidade){
 
-        console.log("ENTROU NO ADMINJOB")
+            case "Minute":
+               temp = this.params
+            break;
 
-        emitter.on('scheduleTime', () => {
+            case "Hours":
+               temp = this.params*60
+            break;
 
-            let url_taskMap: any = {}
-    
-            const task = schedule(`*/${temp} * * * *`, async () => {
-                console.log("ENTROU NO ADMINJOB CONFIG")
-    
-                url_taskMap[url] = task;
-    
-    
-                if (temp != 1) {
-    
-                    console.log("ENTROU NO IF ADMIN-TIME")
-    
-                    url_taskMap[url].stop()
-                    console.log("Deu o STOP")
-    
-                    url_taskMap[url].start()
-                    console.log("Deu o START")
-                }
-    
-                return await func()
-                
-            })
+            case "Day":
+                temp = this.params*1440
+            break;
             
-        });
+            case "Month":
+                temp = this.params*43800
+            break;
+            
+            default: return console.log("invalid unit, please check")
 
+        }
+
+        console.log("TEMP", temp)
+
+        return schedule(`*/${temp} * * * *`, async () => {
+            
+            console.log(` The schedule is running every ${temp} Hours/Day/Month/Minute`)
+            return await func()
+
+        })
     }
 }
 
-const adminScheduler = new AdminScheduler()
+const JobsSchedule = new Jobs()
 
-export default adminScheduler
+export default JobsSchedule

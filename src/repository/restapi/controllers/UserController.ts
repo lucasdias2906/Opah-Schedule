@@ -1,28 +1,23 @@
 
-import { Request, Response } from 'express';
 import axios from 'axios';
-import JobConfig from '../configs/Job'
-
+import AdminScheduleConfig from '../configs/AdminSchedule'
 
 import User from '../../models/DevSchema'
 
 const key = "AIzaSyCi40KsvfAENVTteNcHVACNRKzAFUhbAxI"
 
-// var temp = 1
+class UserController {
+    
+    static async update(temp: any) {
+        
+        AdminScheduleConfig.job(1, async () => {
 
-class DevController {
-
-    static async update(req: Request, res: Response) {
-
-        JobConfig.job(1, async () => {
-            const users: any = await User.find()            
-            console.log("Só será executado em um minuto e repetirá (de 1 em 1 minutos) até ser desativado...");
+            const users: any = await User.find() 
 
             await new Promise(resolve => {
 
                 users.forEach(async (user: any, index: number) => {
 
-                    
                     if (!user.lat || !user.lng) {
 
                         const addressUrl = encodeURIComponent(user.address[0].street)
@@ -57,6 +52,6 @@ class DevController {
 }
 
 
-export default DevController;
+export default UserController;
 
 
