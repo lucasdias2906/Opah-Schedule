@@ -32,8 +32,6 @@ class UserController {
 
                         await User.findOneAndUpdate({ _id: user.id }, objteste)
 
-                        console.log("USER 2", user)
-
                         if (index === users.length) {
                             resolve(true)
                         }
