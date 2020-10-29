@@ -1,6 +1,6 @@
 import { schedule } from 'node-cron'
 
-class Jobs {
+class AdminScheduleConfig {
 
     private unidade = "Minute"
     private params = 2
@@ -40,6 +40,6 @@ class Jobs {
     }
 }
 
-const JobsSchedule = new Jobs()
+const adminScheduleConfig = new AdminScheduleConfig()
 
-export default JobsSchedule
+export default adminScheduleConfig
