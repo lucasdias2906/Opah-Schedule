@@ -4,6 +4,8 @@ const UserSchema = new mongoose.Schema({
     address: [{
         type_street: String,
         street: String,
+        city: String,
+        neighborhood: String,
 
     }],
     lat: Number,

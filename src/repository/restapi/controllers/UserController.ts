@@ -25,27 +25,40 @@ class UserController {
 
                         console.log(address)
 
-                        const addressUrl = encodeURIComponent(address)
+                        console.log("CITY", user.address[0].city)
+                        console.log("BAIRRO", user.address[0].neighborhood)
 
+
+                        const addressUrl = encodeURIComponent(address)
+                        
                         const apiRes = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${addressUrl}&key=${key}`)
 
-                        const { location } = apiRes.data?.results[0].geometry
+                        console.log(apiRes.data?.results[1].formatted_address)
+                        
+                        if(apiRes.data?.results[1].formatted_address.includes(user.address[0].city) & apiRes.data?.results[1].formatted_address.includes(user.address[0].neighborhood)){
 
-                        user.location = location
+                            const { location } = apiRes.data?.results[0].geometry
+    
+                            user.location = location
+    
+                            const objteste = await { ...{ _id: user.id }, ...location, payload: { ...apiRes.data?.results[0] } }
+    
+                            await User.findOneAndUpdate({ _id: user.id }, objteste)
+    
+                            if (index === users.length) {
+                                resolve(true)
+                            }
+    
+                            return console.log("User updated successfully")
 
-                        const objteste = await { ...{ _id: user.id }, ...location, payload: { ...apiRes.data?.results[0] } }
+                        } else {
 
-                        await User.findOneAndUpdate({ _id: user.id }, objteste)
-
-                        if (index === users.length) {
-                            resolve(true)
+                            return console.log("Please check the address information")
                         }
 
-                        return console.log("Usuaários atualizados com sucesso")
                     }
 
-
-                    return console.log("Nenhuma atualização foi feita")
+                    return console.log("No user has been updated")
                 })
 
             });
