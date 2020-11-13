@@ -2,31 +2,31 @@
 import axios from 'axios';
 import AdminScheduleConfig from '../configs/AdminSchedule'
 
-import User from '../../models/DevSchema'
+import AddressCompany from '../../models/DevSchema'
 
 const key = "AIzaSyCi40KsvfAENVTteNcHVACNRKzAFUhbAxI"
 
-class UserController {
+class AddressCompanyController {
 
-    static async update(temp: any) {
+    static async update() {
 
         AdminScheduleConfig.job(0, async () => {
 
-            const users: any = await User.find()
+            const addressCompanys: any = await AddressCompany.find()
 
             await new Promise(resolve => {
 
-                users.forEach(async (user: any, index: number) => {
+                addressCompanys.forEach(async (addressCompany: any, index: number) => {
 
 
-                    if (!user.lat || !user.lng) {
+                    if (!addressCompany.lat || !addressCompany.lng) {
 
-                        const address = user.address[0].type_street + " " + user.address[0].street
+                        const address = addressCompany.type_street + " " + addressCompany.street
 
                         console.log(address)
 
-                        console.log("CITY", user.address[0].city)
-                        console.log("BAIRRO", user.address[0].neighborhood)
+                        console.log("CITY", addressCompany.city)
+                        console.log("BAIRRO", addressCompany.neighborhood)
 
 
                         const addressUrl = encodeURIComponent(address)
@@ -35,17 +35,17 @@ class UserController {
 
                         console.log(apiRes.data?.results[1].formatted_address)
                         
-                        if(apiRes.data?.results[1].formatted_address.includes(user.address[0].city) & apiRes.data?.results[1].formatted_address.includes(user.address[0].neighborhood)){
+                        if(apiRes.data?.results[1].formatted_address.includes(addressCompany.city) & apiRes.data?.results[1].formatted_address.includes(addressCompany.neighborhood)){
 
                             const { location } = apiRes.data?.results[0].geometry
     
-                            user.location = location
+                            addressCompany.location = location
     
-                            const objteste = await { ...{ _id: user.id }, ...location, payload: { ...apiRes.data?.results[0] } }
+                            const objteste = await { ...{ _id: addressCompany.id }, ...location, payload: { ...apiRes.data?.results[0] } }
     
-                            await User.findOneAndUpdate({ _id: user.id }, objteste)
+                            await AddressCompany.findOneAndUpdate({ _id: addressCompany.id }, objteste)
     
-                            if (index === users.length) {
+                            if (index === addressCompanys.length) {
                                 resolve(true)
                             }
     
@@ -69,6 +69,6 @@ class UserController {
 }
 
 
-export default UserController;
+export default AddressCompanyController;
 
 
