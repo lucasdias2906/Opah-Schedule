@@ -3,7 +3,7 @@ import { schedule } from 'node-cron'
 class AdminScheduleConfig {
 
     private unidade = "Minute"
-    private params = 2
+    private params = 1
 
     public job(temp: Number, func: Function) {
 
