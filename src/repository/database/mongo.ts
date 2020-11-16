@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-export default mongoose.connect("mongodb+srv://adminrules:jottajotta@cluster0.lfdp7.mongodb.net/testesssss?retryWrites=true&w=majority", {
+export default mongoose.connect("mongodb+srv://opah:lucaslucas@cluster0.mkspc.mongodb.net/opah?retryWrites=true&w=majority", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,

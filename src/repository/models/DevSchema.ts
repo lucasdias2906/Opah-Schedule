@@ -1,11 +1,14 @@
 import mongoose from 'mongoose';
 
 const UserSchema = new mongoose.Schema({
-    address: [{
-        street: String,
-    }],
-    lat: Number,
-    lng: Number,
-    payload: Object
+
+    company: Number, 
+    type_street: String,
+    street: String,
+    city: String,
+    neighborhood: String,
 });
-export default mongoose.model("User", UserSchema);
+
+
+
+export default mongoose.model("address", UserSchema, "address");

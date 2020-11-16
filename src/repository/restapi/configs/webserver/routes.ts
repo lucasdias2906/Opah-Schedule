@@ -1,13 +1,8 @@
-import { Request, Response, Router } from 'express';
-import DevController from '../../controllers/DevController';
+import { Router } from 'express';
+import UserController from '../../controllers/UserController';
 
 const routes = Router();
 
-routes.get('/', (req: Request, res: Response) =>
-
-    res.send({ status: 'OK' })
-);
-
-routes.get('/users', DevController.update);
+routes.post('/users', UserController.update);
 
 export default routes;

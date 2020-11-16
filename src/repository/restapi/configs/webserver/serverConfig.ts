@@ -14,32 +14,35 @@ export default class ServerConfig {
     constructor() {
         this.server = express()
 
-        this.dbConnection().then(success => console.warn("DB CONNECTION SUCCESS")).catch(error => console.warn("DB CONNECTION ERROR",error))
+        this.dbConnection().then(success => console.warn("DB CONNECTION ")).catch(error => console.warn("DB CONNECTION ERROR",error))
         mongoose.set('useFindAndModify', false);
         this.server.use(express.json())
         this.server.use(express.urlencoded({ extended: false }))
         this.server.use(compression())
         this.server.use(helmet())
-
+        
         this.server.use(cors())
-
-         this.server.use(routes)
-
+        
+        this.server.use(routes)
+        
     }
-
+    
     public createHTTP() {
-
-
+        
+        
         return http.createServer(this.server);
     }
-
+    
+    
     private dbConnection() {
-        return new Promise((resolve, reject) => mongoose.connect("mongodb+srv://adminrules:jottajotta@cluster0.lfdp7.mongodb.net/testesssss?retryWrites=true&w=majority", {
+        return new Promise((resolve, reject) => mongoose.connect("mongodb+srv://opah:lucaslucas@cluster0.mkspc.mongodb.net/opah?retryWrites=true&w=majority", {
             useNewUrlParser: true,
             useUnifiedTopology: true,
             useCreateIndex: true
         }).then(resolve).catch(reject)
         )
+
+    
 
     }
 }
