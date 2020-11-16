@@ -3,6 +3,8 @@ import axios from 'axios';
 import AdminScheduleConfig from '../configs/AdminSchedule'
 
 import User from '../../models/DevSchema'
+import Companies from '../../models/Companies'
+
 
 const key = "AIzaSyCi40KsvfAENVTteNcHVACNRKzAFUhbAxI"
 
@@ -13,32 +15,28 @@ class AddressCompanyController {
         AdminScheduleConfig.job(0, async () => {
 
             const users: any = await User.find()
-
-            console.log(users)
+            await Companies.find()
 
             await new Promise(resolve => {
 
                 users.forEach(async (user: any, index: number) => {
 
-                    if (!user.lat || !user.lng) {
+                        const address = user.type_street + " " + user.street
 
-                        const address = user.address[0].type_street + " " + user.address[0].street
-
+                        console.log(address)
                         const addressUrl = encodeURIComponent(address)
 
                         const apiRes = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${addressUrl}&key=${key}`)
 
-                        if(apiRes.data?.results[0].formatted_address.includes(user.address[0].city && user.address[0].neighborhood)){
+                        if(apiRes.data?.results[0].formatted_address.includes( user.city && user.neighborhood)){
 
                             const { location } = apiRes.data?.results[0].geometry
     
                             user.location = location
 
-                            console.log(location)
+                            const objteste = await { ...{ cnpj: user.company }, ...location, payload: { ...apiRes.data?.results[0] } }
     
-                            const objteste = await { ...{ _id: user.id }, ...location, payload: { ...apiRes.data?.results[0] } }
-    
-                            await User.findOneAndUpdate({ _id: user.id }, objteste)
+                            await Companies.findOneAndUpdate({ cnpj: user.company }, objteste)
     
                             if (index === users.length) {
                                 resolve(true)
@@ -51,10 +49,6 @@ class AddressCompanyController {
                             return console.log("Business address information")
                             
                         }
-
-                    }
-                    
-                    return console.log("No businesses have been updated")
                 })
 
             });

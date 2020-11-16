@@ -20,26 +20,29 @@ export default class ServerConfig {
         this.server.use(express.urlencoded({ extended: false }))
         this.server.use(compression())
         this.server.use(helmet())
-
+        
         this.server.use(cors())
-
-         this.server.use(routes)
-
+        
+        this.server.use(routes)
+        
     }
-
+    
     public createHTTP() {
-
-
+        
+        
         return http.createServer(this.server);
     }
-
+    
+    
     private dbConnection() {
-        return new Promise((resolve, reject) => mongoose.connect("mongodb+srv://adminrules:jottajotta@cluster0.lfdp7.mongodb.net/testesssss?retryWrites=true&w=majority", {
+        return new Promise((resolve, reject) => mongoose.connect("mongodb+srv://opah:lucaslucas@cluster0.mkspc.mongodb.net/opah?retryWrites=true&w=majority", {
             useNewUrlParser: true,
             useUnifiedTopology: true,
             useCreateIndex: true
         }).then(resolve).catch(reject)
         )
+
+    
 
     }
 }
