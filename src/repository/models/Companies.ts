@@ -1,11 +1,10 @@
 import mongoose from 'mongoose';
 
 const CompaniesSchema = new mongoose.Schema({
-
     cnpj: Number,
-    razão_social: String,
+    razao_social: String,
     lat: Number,
-    lng: Number,
+    long: Number,
     payload: Object
 
 });

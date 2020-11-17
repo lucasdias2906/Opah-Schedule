@@ -7,7 +7,7 @@ import http from 'http'
 import mongoose from 'mongoose'
 // import swaggerUi from 'swagger-ui-express'
 // import swaggerSpecs from './swagger.json'
- import '../../../models/DevSchema'
+ import '../../../models/AddressCompany'
 export default class ServerConfig {
     private server: express.Express;
 
