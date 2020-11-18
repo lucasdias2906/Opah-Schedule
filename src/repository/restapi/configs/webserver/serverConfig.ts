@@ -35,7 +35,7 @@ export default class ServerConfig {
     
     
     private dbConnection() {
-        return new Promise((resolve, reject) => mongoose.connect("mongodb+srv://opah:lucaslucas@cluster0.mkspc.mongodb.net/opah?retryWrites=true&w=majority", {
+        return new Promise((resolve, reject) => mongoose.connect("mongodb://nilab:nilab123@10.254.2.65:27017/nilab?retryWrites=true&w=majority", {
             useNewUrlParser: true,
             useUnifiedTopology: true,
             useCreateIndex: true
@@ -46,3 +46,6 @@ export default class ServerConfig {
 
     }
 }
+
+// mongodb+srv://opah:lucaslucas@cluster0.mkspc.mongodb.net/opah?retryWrites=true&w=majority
+// "mongodb+srv://nilab:nilab123@10.254.2.65:27017/nilab?retryWrites=true&w=majority"

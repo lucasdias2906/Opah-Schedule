@@ -19,43 +19,30 @@ class AddressCompanyController {
 
                 addressCompanys.forEach(async (addressCompany: any, index: number) => {
 
-                    const address = addressCompany.tipo_logradouro + " " + addressCompany.logradouro
+                    const cepAddress = addressCompany.CEP
 
-                    console.log("ENDEREÇO", address)
+                    const cepUrl = encodeURIComponent(cepAddress)
 
-                    const addressUrl = encodeURIComponent(address)
+                    const apiRes: any = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${cepUrl}&key=${key}`).catch(error => console.log("ERROR API", error))
 
-                    const apiRes = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${addressUrl}&key=${key}`)
+                    const { location } = apiRes.data?.results[0].geometry;
 
-                    // if (apiRes.data?.results[0].formatted_address.includes("- " + AddressCompany.uf)) {
+                    // aqui estou copiando o objeto e falando que a LAT: recebe a LAT que esta dentro de LOCATION, LONG: recebe o LONG que esta dentro de LOCATION
+                    const objCompanies = await { ...{ CNPJ: addressCompany.company }, LAT: location.lat, LONG: location.lng }
 
-                        console.log("Entrou no if")
+                    await Companies.findOneAndUpdate({ CNPJ: addressCompany.company }, objCompanies)
 
-                        const { location } = apiRes.data?.results[0].geometry;
 
-                        const objCompanies = await { ...{ cnpj: addressCompany.company }, lat: location.lat, long: location.lng, payload: { ...apiRes.data?.results[0] } }
+                    if (index === addressCompanys.length) {
+                        resolve(true)
+                    }
 
-                        await Companies.findOneAndUpdate({ cnpj: addressCompany.company }, objCompanies)
-
-                        if (index === addressCompanys.length) {
-                            resolve(true)
-                        }
-
-                        return console.log("Companies updated successfully")
-
-                    // } else {
-
-                    //     return console.log("Business address information")
-
-                    // }
+                    return console.log("Atualizados com sucesso")
 
                 })
-
             });
         });
-
     }
-
 }
 
 

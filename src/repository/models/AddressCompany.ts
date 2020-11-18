@@ -1,12 +1,16 @@
 import mongoose from 'mongoose';
 
 const AddressCompanySchema = new mongoose.Schema({
-    company: Number, 
-    tipo_logradouro: String,
-    logradouro: String,
-    cidade: String,
-    bairro: String,
-    uf: String,
+    company: String,
+    CEP: String,
+    TIPO_LAGRADOURO: String,
+    LAGRADOURO: String,
+    NUMERO: String,
+    COMPLEMENTO: String,
+    CIDADE: String,
+    BAIRRO: String,
+    UF: String,
+    _class: String,
 });
 
-export default mongoose.model("address", AddressCompanySchema, "address");
+export default mongoose.model("adressCompany", AddressCompanySchema, "adressCompany");
