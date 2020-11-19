@@ -47,5 +47,3 @@ export default class ServerConfig {
     }
 }
 
-// mongodb+srv://opah:lucaslucas@cluster0.mkspc.mongodb.net/opah?retryWrites=true&w=majority
-// "mongodb+srv://nilab:nilab123@10.254.2.65:27017/nilab?retryWrites=true&w=majority"

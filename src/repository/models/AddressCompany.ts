@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 
 const AddressCompanySchema = new mongoose.Schema({
+    _id: String,
     company: String,
     CEP: String,
     TIPO_LAGRADOURO: String,

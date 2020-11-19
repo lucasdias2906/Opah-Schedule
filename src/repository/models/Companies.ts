@@ -29,7 +29,6 @@ const CompaniesSchema = new mongoose.Schema({
     createDate: String,
     updateDate: String,
     _class: String,
-    // payload: Object
 
 });
 
