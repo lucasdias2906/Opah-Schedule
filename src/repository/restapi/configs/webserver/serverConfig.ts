@@ -35,15 +35,12 @@ export default class ServerConfig {
     
     
     private dbConnection() {
-        return new Promise((resolve, reject) => mongoose.connect("mongodb://nilab:nilab123@10.254.2.65:27017/nilab?retryWrites=true&w=majority", {
+        return new Promise((resolve, reject) => mongoose.connect("mongodb://nilab:nilab123@10.254.2.65:27017/nilab?retryWrites=true&w=majorityity", {
             useNewUrlParser: true,
             useUnifiedTopology: true,
             useCreateIndex: true
         }).then(resolve).catch(reject)
         )
 
-    
-
     }
 }
-

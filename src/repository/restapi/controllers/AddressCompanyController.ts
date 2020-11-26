@@ -20,16 +20,19 @@ class AddressCompanyController {
                 addressCompanys.forEach(async (addressCompany: any, index: number) => {
 
                     const cepAddress = addressCompany.CEP
-                    
-                    const cepUrl = cepAddress.slice(0, 5) + "%20" + cepAddress.slice(5,9)
-                    
+
+                    const cepUrl = cepAddress.slice(0, 5) + "%20" + cepAddress.slice(5, 9)
+
                     const apiRes: any = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${cepUrl}&key=${key}`).catch(error => console.log("ERROR API", error))
-                    
+
                     const { location } = apiRes.data?.results[0].geometry;
-                    
+
                     const id = addressCompany._id.substr(8, 20)
+
                     // aqui estou copiando o objeto e falando que a LAT: recebe a LAT que esta dentro de LOCATION, LONG: recebe o LONG que esta dentro de LOCATION
                     const objCompanies = await { ...{ CNPJ: id }, LAT: location.lat, LONG: location.lng }
+
+                    // return console.log("EEEEEE", objCompanies)
 
                     await Companies.findOneAndUpdate({ CNPJ: id }, objCompanies)
 
