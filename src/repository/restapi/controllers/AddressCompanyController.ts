@@ -32,8 +32,6 @@ class AddressCompanyController {
                     // aqui estou copiando o objeto e falando que a LAT: recebe a LAT que esta dentro de LOCATION, LONG: recebe o LONG que esta dentro de LOCATION
                     const objCompanies = await { ...{ CNPJ: id }, LAT: location.lat, LONG: location.lng }
 
-                    // return console.log("EEEEEE", objCompanies)
-
                     await Companies.findOneAndUpdate({ CNPJ: id }, objCompanies)
 
                     if (index === addressCompanys.length) {
